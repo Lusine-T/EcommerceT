@@ -2,7 +2,7 @@
 
 namespace EcommerceTests.Builders
 {
-    public class UserBuilder
+    public class UserBuilder 
     {
         private string _email;
         private string _password;
