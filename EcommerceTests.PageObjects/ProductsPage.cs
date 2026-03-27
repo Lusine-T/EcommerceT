@@ -1,8 +1,10 @@
-﻿using System;
+using System.Globalization;
+using System;
+using System.Linq;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 using EcommerceTests.Core;
-using System.Threading.Tasks;
-using System.Security.Claims;
+using OpenQA.Selenium.Support.UI;
 
 namespace EcommerceTests.PageObjects
 {
@@ -10,8 +12,12 @@ namespace EcommerceTests.PageObjects
     {
         private List<IWebElement> ProductsNamesList;
         private List<IWebElement> ProductsFavoriteButtonsList;
+        private List<IWebElement> ProductsPricesList;
 
-        // XPath для продукта по имени
+        private IWebElement SortDropdown => Driver.FindElement(By.XPath("//button[@data-slot = 'popover-trigger']"));
+        private By ProductPrices => By.XPath("//div[contains(@class, 'flex flex')]/div[contains(@class, 'flex')]/span"); 
+        private By DropDownOptionLowToHigh => By.XPath("/html/body/div[3]/div/div/div[2]/div/div/div/div[3]");
+
         private By GetFavoriteButton(string productName) =>
             By.XPath($"//div[contains(@class,'product')]//h5[text()='{productName}']/ancestor::div[contains(@class,'product')]//button[contains(@class,'favorite')]");
 
@@ -26,7 +32,25 @@ namespace EcommerceTests.PageObjects
         {
             ProductsNamesList = Driver.FindElements(ProductNames).ToList();
             ProductsFavoriteButtonsList = Driver.FindElements(AddToFavoritesButtons).ToList();
+            ProductsPricesList = Driver.FindElements(ProductPrices).ToList();
             return this;
+        }
+
+        public ProductsPage SelectSortOption(string option)
+        {
+            SortDropdown.Click();
+            if (option == "Price: Low to High")
+            {
+                WaitForElementToAppear(DropDownOptionLowToHigh);
+                Driver.FindElement(DropDownOptionLowToHigh).Click();
+                ShortWaitForElementToDisappear(DropDownOptionLowToHigh);
+            }
+            return this;
+        }
+
+        public List<double> GetProductPrices()
+        {
+            return ProductsPricesList.Select(x => double.Parse(x.Text.Replace("$", ""), CultureInfo.InvariantCulture)).ToList();
         }
 
         public ProductsPage ClickFavoriteButton(int index)
@@ -62,7 +86,6 @@ namespace EcommerceTests.PageObjects
             return new FavoritesPage();
 
         }
-
 
 
     }

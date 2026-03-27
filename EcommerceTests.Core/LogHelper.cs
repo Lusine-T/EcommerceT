@@ -1,4 +1,4 @@
-﻿using log4net;
+using log4net;
 using log4net.Config;
 using System;
 using System.IO;
@@ -8,11 +8,11 @@ namespace EcommerceTests.Core
 {
     public static class LogHelper
     {
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog _log = LogManager.GetLogger(typeof(LogHelper));
 
          static LogHelper()
         {
-            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            var logRepository = LogManager.GetRepository(Assembly.GetExecutingAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 

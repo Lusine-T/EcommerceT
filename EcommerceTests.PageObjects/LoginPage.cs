@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,8 +17,8 @@ namespace EcommerceTests.PageObjects
         private IWebElement PasswordField => Driver.FindElement(By.XPath("//input[@id='password']"));
         private IWebElement LoginButton => Driver.FindElement(By.XPath("//button[@type='submit']"));
         
-        private IWebElement UsernameError;// => Driver.FindElement(By.XPath("//p[contains(text(),'Username is incorrect')]"));
-        private IWebElement PasswordError;// => Driver.FindElement(By.XPath("//p[contains(text(),'Password is incorrect')]"));
+        private IWebElement UsernameError;
+        private IWebElement PasswordError;
         
         public LoginPage EnterEmail(string email)
         {
@@ -77,14 +77,14 @@ namespace EcommerceTests.PageObjects
             return new ProductsPage();
         }
 
-        public string GetUsernameError() //=> UsernameError.Text;
+        public string GetUsernameError()
         {
             if (UsernameError is not null && UsernameError.Displayed)
                 return UsernameError.Text;
              
             return string.Empty;
         }
-        public string GetPasswordError() //=> PasswordError.Text;
+        public string GetPasswordError()
         {
             if (PasswordError is not null && PasswordError.Displayed)
                 return PasswordError.Text;

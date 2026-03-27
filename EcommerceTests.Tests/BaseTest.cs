@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +10,12 @@ namespace EcommerceTests.Tests;
 
 public class BaseTest : IDisposable
 {
+
+    public static IEnumerable<object[]> Browsers =>
+    Config.Browsers.SelectMany(browser => new[]
+    {
+        new object[] {browser}
+    });
     protected void Setup(string browser)
     {
         LogHelper.Info($"Initializing browser: {browser}");

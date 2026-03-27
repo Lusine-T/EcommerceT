@@ -1,4 +1,4 @@
-﻿using EcommerceTests.Models;
+using EcommerceTests.Models;
 
 namespace EcommerceTests.Builders
 {
@@ -9,7 +9,6 @@ namespace EcommerceTests.Builders
 
         public UserBuilder()
         {
-            // default values
             _email = "test@qabrains.com";
             _password = "Password123";
         }
