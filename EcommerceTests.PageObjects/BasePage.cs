@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -11,11 +11,14 @@ namespace EcommerceTests.PageObjects
     {
         protected IWebDriver Driver;
         private readonly WebDriverWait _wait;
+        private readonly WebDriverWait _shortWait;
 
         protected BasePage(IWebDriver driver)
         {
             Driver = driver;
             _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            _shortWait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(20));
+
         }
 
         protected IWebElement Find(By locator)
@@ -61,6 +64,18 @@ namespace EcommerceTests.PageObjects
         {
             LogHelper.Info($"Waiting for element to disappear: {locator}");
             _wait.Until(ExpectedConditions.InvisibilityOfElementLocated(locator));
+        }
+
+        protected void ShortWaitForElementToDisappear(By locator)
+        {
+            LogHelper.Info($"Waiting for element to disappear: {locator}");
+            _shortWait.Until(ExpectedConditions.InvisibilityOfElementLocated(locator));
+        }
+
+        protected void WaitForElementToAppear(By locator)
+        {
+            LogHelper.Info($"Waiting for element to disappear: {locator}");
+            _wait.Until(ExpectedConditions.ElementIsVisible(locator));
         }
 
         protected void NavigateTo(string url)

@@ -15,10 +15,17 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.41.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EcommerceTests.Builders\EcommerceTests.Builders.csproj" />
+    <ProjectReference Include="..\EcommerceTests.Core\EcommerceTests.Core.csproj" />
+    <ProjectReference Include="..\EcommerceTests.PageObjects\EcommerceTests.PageObjects.csproj" />
   </ItemGroup>
 
 </Project>
